@@ -22,6 +22,18 @@ mod native {
         pub fn eth2_blockDataCopy(outputOfset: *const u32, offset: u32, length: u32);
         pub fn eth2_savePostStateRoot(offset: *const u32);
         pub fn eth2_pushNewDeposit(offset: *const u32, length: u32);
+
+        pub fn eth2_loadModule(module_id: u32, offset: *const u32, length: u32);
+    }
+}
+
+pub fn load_module(module_id: u32, code: &[u8]) {
+    unsafe {
+        native::eth2_loadModule(
+            module_id,
+            code.as_ptr() as *const u32,
+            code.len() as u32,
+        )
     }
 }
 
